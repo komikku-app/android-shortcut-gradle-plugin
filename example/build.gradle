@@ -2,13 +2,14 @@ buildscript {
     apply from: '../gradle/version.gradle'
     repositories {
         google()
+        mavenCentral()
+        gradlePluginPortal()
         maven {
             url uri("../${repo_name}")
         }
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:8.0.2'
         classpath "com.github.zellius:android-shortcut-gradle-plugin:${plugin_version}"
     }
 }

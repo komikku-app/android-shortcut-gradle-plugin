@@ -1,15 +1,21 @@
 buildscript {
     repositories {
-        jcenter()
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://groovy.jfrog.io/artifactory/libs-release/' }
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
     }
 }
 
 repositories {
     google()
-    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://groovy.jfrog.io/artifactory/libs-release/' }
 }
 
 apply plugin: 'groovy'
@@ -19,5 +25,10 @@ dependencies {
     implementation localGroovy()
     implementation gradleApi()
 
-    compileOnly "com.android.tools.build:gradle:3.0.1"
+    compileOnly "com.android.tools.build:gradle:8.0.2"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }

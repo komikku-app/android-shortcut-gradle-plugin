@@ -9,6 +9,23 @@ def repository_url = "https://github.com/Zellius"
 
 def lib_description = 'Android Gradle plugin generates App Shortcuts shortcuts.xml for build flavors with different applicationId.'
 
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+tasks.register('groovydocJar', Jar) {
+    dependsOn groovydoc
+    archiveClassifier = 'groovydoc'
+    from groovydoc.destinationDir
+}
+
+tasks.register('javadocJar', Jar) {
+    dependsOn javadoc
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
 publishing {
     publications {
         PluginPublication(MavenPublication) {
@@ -69,37 +86,6 @@ bintray {
         version {
             name = project.version
             vcsTag = "v${project.version}"
-        }
-    }
-}
-
-task sourcesJar(type: Jar) {
-    classifier 'sources'
-    from sourceSets.main.allSource
-}
-
-task groovydocJar(type: Jar, dependsOn: groovydoc) {
-    classifier 'groovydoc'
-    from groovydoc.destinationDir
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives groovydocJar
-    archives javadocJar
-}
-
-apply plugin: 'maven'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri(repo_name))
         }
     }
 }
